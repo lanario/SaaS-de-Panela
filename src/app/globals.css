@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #E6EFFD;
+  --foreground: #1f2937;
+  --focus-ring: #5B92EE;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+/* Acessibilidade: anel de foco visível para navegação por teclado */
+:focus-visible {
+  outline: 2px solid var(--focus-ring, #5B92EE);
+  outline-offset: 2px;
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
