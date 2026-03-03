@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useFormState } from "react-dom";
-import { motion } from "framer-motion";
+import { useFormState, useFormStatus } from "react-dom";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { FiAlertCircle, FiLoader } from "react-icons/fi";
 
 export interface AuthFormField {
   name: string;
@@ -29,6 +30,76 @@ const fieldItem = {
   },
 };
 
+/** Texto exibido no botão durante o envio (ex: "Entrando...", "Criando conta..."). */
+const loadingLabels: Record<string, string> = {
+  Entrar: "Entrando...",
+  "Criar conta": "Criando conta...",
+  "Enviar link": "Enviando...",
+};
+
+/**
+ * Botão de submit que usa useFormStatus para mostrar estado de loading.
+ * Deve ser usado apenas dentro do <form> do AuthForm.
+ */
+function AuthFormSubmitButton({ submitLabel }: { submitLabel: string }) {
+  const { pending } = useFormStatus();
+  const loadingText = loadingLabels[submitLabel] ?? `${submitLabel}...`;
+  const isPill = submitLabel === "Entrar";
+
+  if (isPill) {
+    return (
+      <span className="gradient-beam-wrap gradient-beam-pill block w-full">
+        <button
+          type="submit"
+          disabled={pending}
+          className="w-full bg-presentix-700 text-white py-3 px-6 rounded-full text-sm font-semibold hover:bg-presentix-800 transition-colors focus:outline-none focus:ring-2 focus:ring-presentix-400 focus:ring-offset-2 active:scale-[0.99] disabled:opacity-90 disabled:pointer-events-none flex items-center justify-center gap-2 min-h-[44px]"
+        >
+          {pending ? (
+            <>
+              <FiLoader className="text-lg animate-spin shrink-0" aria-hidden />
+              <span className="inline-flex items-baseline gap-0.5">
+                {loadingText.split("").map((char, i) => (
+                  <motion.span
+                    key={i}
+                    initial={{ opacity: 0.6 }}
+                    animate={{ opacity: [0.6, 1, 0.6] }}
+                    transition={{
+                      duration: 0.6,
+                      repeat: Infinity,
+                      delay: i * 0.08,
+                    }}
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </span>
+            </>
+          ) : (
+            submitLabel
+          )}
+        </button>
+      </span>
+    );
+  }
+
+  return (
+    <button
+      type="submit"
+      disabled={pending}
+      className="w-full bg-presentix-700 text-white py-2.5 rounded-xl text-sm font-semibold hover:bg-presentix-800 transition focus:outline-none focus:ring-2 focus:ring-presentix-400 focus:ring-offset-2 active:scale-[0.99] disabled:opacity-90 disabled:pointer-events-none flex items-center justify-center gap-2"
+    >
+      {pending ? (
+        <>
+          <FiLoader className="text-lg animate-spin shrink-0" aria-hidden />
+          <span>{loadingText}</span>
+        </>
+      ) : (
+        submitLabel
+      )}
+    </button>
+  );
+}
+
 export function AuthForm({
   action,
   submitLabel,
@@ -54,6 +125,7 @@ export function AuthForm({
   }, [searchParams, redirectToParam]);
 
   const showSuccess = successMessage && state && !state.error;
+  const reduceMotion = useReducedMotion();
 
   return (
     <form action={formAction} className="space-y-4">
@@ -86,17 +158,33 @@ export function AuthForm({
           </motion.div>
         ))}
       </motion.div>
-      {state?.error && (
-        <motion.p
-          className="text-sm text-red-600 bg-red-50 rounded-lg px-3 py-2"
-          role="alert"
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          {state.error}
-        </motion.p>
-      )}
+      <AnimatePresence mode="wait">
+        {state?.error && (
+          <motion.div
+            role="alert"
+            initial={{ opacity: 0, y: -8, x: 0 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              x: reduceMotion ? 0 : [0, -6, 6, -4, 4, 0],
+            }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{
+              opacity: { duration: 0.25 },
+              y: { duration: 0.25 },
+              x: { duration: reduceMotion ? 0 : 0.5, ease: "easeOut" },
+            }}
+            className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50/90 px-4 py-3 shadow-sm shadow-red-100/50"
+          >
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-red-100 text-red-600">
+              <FiAlertCircle className="text-lg" aria-hidden />
+            </span>
+            <p className="text-sm font-medium text-red-800 leading-snug pt-0.5">
+              {state.error}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
       {showSuccess && (
         <motion.p
           className="text-sm text-green-600 bg-green-50 rounded-lg px-3 py-2"
@@ -112,13 +200,9 @@ export function AuthForm({
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.15 + fields.length * 0.1, duration: 0.4 }}
+        className={submitLabel === "Entrar" ? "w-full" : undefined}
       >
-        <button
-          type="submit"
-          className="w-full bg-presentix-700 text-white py-2.5 rounded-xl text-sm font-semibold hover:bg-presentix-800 transition focus:outline-none focus:ring-2 focus:ring-presentix-400 focus:ring-offset-2 active:scale-[0.99]"
-        >
-          {submitLabel}
-        </button>
+        <AuthFormSubmitButton submitLabel={submitLabel} />
       </motion.div>
     </form>
   );

@@ -68,6 +68,54 @@ body {
 /* Respeitar preferência de movimento reduzido */
 @media (prefers-reduced-motion: reduce) {
   .auth-bg-orb { animation: none; }
+  .gradient-beam-wrap::before { animation: none; }
+}
+
+/* Gradient beam: borda animada em preto ao redor do botão (estilo Aura) */
+.gradient-beam-wrap {
+  position: relative;
+  border-radius: 0.75rem;
+  padding: 2px;
+  overflow: hidden;
+  display: inline-block;
+}
+.gradient-beam-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -100%;
+  width: 300%;
+  height: 300%;
+  left: -100%;
+  top: -100%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 200deg,
+    #262626 220deg,
+    #737373 250deg,
+    #262626 280deg,
+    transparent 300deg,
+    transparent 360deg
+  );
+  animation: gradient-beam-rotate 3s linear infinite;
+  z-index: 0;
+}
+.gradient-beam-wrap > * {
+  position: relative;
+  z-index: 1;
+  border-radius: 0.65rem;
+}
+/* Variante pill (botão Entrar – estilo Aura) */
+.gradient-beam-wrap.gradient-beam-pill {
+  border-radius: 9999px;
+}
+.gradient-beam-wrap.gradient-beam-pill > * {
+  border-radius: 9999px;
+}
+@keyframes gradient-beam-rotate {
+  to {
+    transform: rotate(360deg);
+  }
 }
 .auth-card-enter {
   animation: auth-card-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;

@@ -13,12 +13,12 @@ interface BokehCircle {
   hue: "pink" | "gray";
 }
 
-/** Cores: rosa Presentix e cinza suave para bokeh em fundo escuro */
+/** Cores: rosa Presentix e cinza muito suave para bokeh em fundo branco (tema login) */
 const PINK_RGB = "236, 72, 153"; // presentix-500
-const GRAY_RGB = "148, 163, 184"; // slate-400
+const GRAY_RGB = "203, 213, 225"; // slate-300
 
 /**
- * Fundo hero com círculos bokeh animados (difusos, em tons de rosa e cinza).
+ * Fundo hero com círculos bokeh animados (suaves, rosa e cinza) em fundo branco.
  * Respeita prefers-reduced-motion.
  */
 export function HeroBokehBackground() {
@@ -42,8 +42,8 @@ export function HeroBokehBackground() {
         y: 0,
         radius: 60 + Math.random() * 140,
         phase: Math.random() * Math.PI * 2,
-        alpha: 0.04 + Math.random() * 0.12,
-        hue: Math.random() > 0.5 ? "pink" : "gray",
+        alpha: 0.06 + Math.random() * 0.1,
+        hue: Math.random() > 0.45 ? "pink" : "gray",
       });
     }
     return circles;
@@ -63,8 +63,8 @@ export function HeroBokehBackground() {
         const r = c.radius * pulse;
         const rgb = c.hue === "pink" ? PINK_RGB : GRAY_RGB;
         const gradient = ctx.createRadialGradient(c.x, c.y, 0, c.x, c.y, r);
-        gradient.addColorStop(0, `rgba(${rgb}, ${c.alpha * 0.9})`);
-        gradient.addColorStop(0.5, `rgba(${rgb}, ${c.alpha * 0.4})`);
+        gradient.addColorStop(0, `rgba(${rgb}, ${c.alpha * 0.7})`);
+        gradient.addColorStop(0.5, `rgba(${rgb}, ${c.alpha * 0.25})`);
         gradient.addColorStop(1, "rgba(255,255,255,0)");
         ctx.beginPath();
         ctx.arc(c.x, c.y, r, 0, Math.PI * 2);
