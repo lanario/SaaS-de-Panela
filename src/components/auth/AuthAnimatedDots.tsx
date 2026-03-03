@@ -73,6 +73,7 @@ export function AuthAnimatedDots() {
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+    const context: CanvasRenderingContext2D = ctx;
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio ?? 1, 2);
@@ -82,7 +83,7 @@ export function AuthAnimatedDots() {
       canvas.height = height * dpr;
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      context.setTransform(dpr, 0, 0, dpr, 0, 0);
       sizeRef.current = { width, height };
     };
 
@@ -93,7 +94,7 @@ export function AuthAnimatedDots() {
     function loop(now: number) {
       if (start === null) start = now;
       const t = now - start;
-      draw(ctx, sizeRef.current.width, sizeRef.current.height, t);
+      draw(context, sizeRef.current.width, sizeRef.current.height, t);
       animationRef.current = requestAnimationFrame(loop);
     }
     animationRef.current = requestAnimationFrame(loop);

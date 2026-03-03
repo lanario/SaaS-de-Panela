@@ -80,6 +80,7 @@ export function HeroBokehBackground() {
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+    const context: CanvasRenderingContext2D = ctx;
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio ?? 1, 2);
@@ -89,7 +90,7 @@ export function HeroBokehBackground() {
       canvas.height = height * dpr;
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      context.setTransform(dpr, 0, 0, dpr, 0, 0);
       sizeRef.current = { width, height };
       circlesRef.current = initCircles(width, height);
     };
@@ -100,7 +101,7 @@ export function HeroBokehBackground() {
     let start: number | null = null;
     function loop(now: number) {
       if (start === null) start = now;
-      draw(ctx, sizeRef.current.width, sizeRef.current.height, now - start);
+      draw(context, sizeRef.current.width, sizeRef.current.height, now - start);
       animationRef.current = requestAnimationFrame(loop);
     }
     animationRef.current = requestAnimationFrame(loop);
