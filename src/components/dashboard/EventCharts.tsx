@@ -19,7 +19,7 @@ interface EventChartsProps {
   items: GiftItem[];
 }
 
-const PROGRESS_COLORS = ["#5B92EE", "#22c55e"]; // primary-600, green-500
+const PROGRESS_COLORS = ["#9d174d", "#22c55e"]; // presentix-800, green-500
 const CATEGORY_COLORS = ["#5B92EE", "#9ABEF5", "#7AA8F2", "#B3CEF8"];
 
 export function EventCharts({ items }: EventChartsProps) {

@@ -86,7 +86,7 @@ export function GiftCard({ item, event }: GiftCardProps) {
           </div>
         </div>
         <div className="p-4 flex flex-col flex-1">
-          <span className="text-xs text-primary-500 font-semibold uppercase mb-1">
+          <span className="text-xs text-presentix-600 font-semibold uppercase mb-1">
             {item.category}
           </span>
           <h4 className="font-semibold text-gray-800 text-sm mb-1 leading-tight">{item.name}</h4>
@@ -104,14 +104,14 @@ export function GiftCard({ item, event }: GiftCardProps) {
                   href={item.product_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 min-w-[80px] bg-primary-500 text-white text-xs font-semibold py-2 rounded-xl text-center hover:bg-primary-600 transition"
+                  className="flex-1 min-w-[80px] bg-presentix-700 text-white text-xs font-semibold py-2 rounded-xl text-center hover:bg-presentix-800 transition"
                 >
                   🛒 Comprar
                 </a>
                 <button
                   type="button"
                   onClick={() => setReserveOpen(true)}
-                  className="flex-1 min-w-[80px] border border-primary-300 text-primary-600 text-xs font-semibold py-2 rounded-xl hover:bg-primary-100 transition"
+                  className="flex-1 min-w-[80px] border border-presentix-300 text-presentix-800 text-xs font-semibold py-2 rounded-xl hover:bg-presentix-50 transition"
                   aria-label={`Reservar ${item.name}`}
                 >
                   📌 Reservar
@@ -119,7 +119,7 @@ export function GiftCard({ item, event }: GiftCardProps) {
                 <button
                   type="button"
                   onClick={() => setPixOpen(true)}
-                  className="flex-1 min-w-[80px] border border-primary-300 text-primary-600 text-xs font-semibold py-2 rounded-xl hover:bg-primary-100 transition"
+                  className="flex-1 min-w-[80px] border border-presentix-300 text-presentix-800 text-xs font-semibold py-2 rounded-xl hover:bg-presentix-50 transition"
                   aria-label={`Pagar com PIX: ${item.name}`}
                 >
                   💸 Pix
@@ -213,7 +213,8 @@ function PixModal({ item, event, open, onOpenChange }: PixModalProps) {
           />
         </Dialog.Overlay>
         <Dialog.Content asChild>
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-50 overflow-y-auto">
+            <div className="flex min-h-dvh items-center justify-center p-4 py-8">
             <motion.div
               className="w-full max-w-sm bg-white rounded-2xl shadow-xl p-6 max-h-[85vh] overflow-y-auto"
               initial={{ opacity: 0, scale: 0.96 }}
@@ -234,10 +235,10 @@ function PixModal({ item, event, open, onOpenChange }: PixModalProps) {
               </button>
             </Dialog.Close>
           </div>
-          <div className="bg-primary-100 rounded-xl p-4 mb-4 text-center">
+          <div className="bg-presentix-50 rounded-xl p-4 mb-4 text-center">
             <p className="text-sm text-gray-500 mb-1">Presente escolhido</p>
             <p className="font-semibold text-gray-800">{item.name}</p>
-            <p className="text-2xl font-bold text-primary-600 mt-2">R$ {price.toFixed(2)}</p>
+            <p className="text-2xl font-bold text-presentix-800 mt-2">R$ {price.toFixed(2)}</p>
           </div>
           {event.pix_key ? (
             <>
@@ -250,7 +251,7 @@ function PixModal({ item, event, open, onOpenChange }: PixModalProps) {
                   <button
                     type="button"
                     onClick={handleCopyKey}
-                    className="flex-shrink-0 text-xs bg-primary-500 text-white px-3 py-1 rounded-lg hover:bg-primary-600 transition"
+                    className="flex-shrink-0 text-xs bg-presentix-700 text-white px-3 py-1 rounded-lg hover:bg-presentix-800 transition"
                   >
                     {copiedKey ? "Copiado!" : "Copiar"}
                   </button>
@@ -268,7 +269,7 @@ function PixModal({ item, event, open, onOpenChange }: PixModalProps) {
                   <button
                     type="button"
                     onClick={handleCopyPayload}
-                    className="mt-3 text-xs bg-primary-500 text-white px-3 py-1.5 rounded-lg hover:bg-primary-600 transition"
+                    className="mt-3 text-xs bg-presentix-700 text-white px-3 py-1.5 rounded-lg hover:bg-presentix-800 transition"
                   >
                     {copiedPayload ? "Código copiado!" : "Copiar código PIX"}
                   </button>
@@ -290,7 +291,7 @@ function PixModal({ item, event, open, onOpenChange }: PixModalProps) {
                     type="text"
                     placeholder="Ex: Ana Paula"
                     required
-                    className="mt-1 w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-300"
+                    className="mt-1 w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-presentix-300"
                   />
                 </div>
                 {state?.error && (
@@ -305,7 +306,7 @@ function PixModal({ item, event, open, onOpenChange }: PixModalProps) {
                 )}
                 <button
                   type="submit"
-                  className="w-full bg-primary-500 text-white py-2 rounded-xl text-sm font-semibold hover:bg-primary-600 transition"
+                  className="w-full bg-presentix-700 text-white py-2 rounded-xl text-sm font-semibold hover:bg-presentix-800 transition"
                 >
                   Vou pagar por PIX
                 </button>
@@ -317,6 +318,7 @@ function PixModal({ item, event, open, onOpenChange }: PixModalProps) {
             </p>
           )}
             </motion.div>
+            </div>
           </div>
         </Dialog.Content>
       </Dialog.Portal>

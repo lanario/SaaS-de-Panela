@@ -66,7 +66,7 @@ export default async function EventoPage({ params }: PageProps) {
     <div>
       <Link
         href="/dashboard"
-        className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-primary-600 mb-4"
+        className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-presentix-700 mb-4"
       >
         <FiArrowLeft /> Voltar
       </Link>
@@ -74,7 +74,7 @@ export default async function EventoPage({ params }: PageProps) {
         <div>
           <h2 className="text-xl font-bold text-gray-800">{event.title}</h2>
           <p className="text-sm text-gray-500">
-            Gerenciar presentes • <Link href={`/lista/${event.slug}`} className="text-primary-600 hover:underline" target="_blank">Ver lista pública</Link>
+            Gerenciar presentes • <Link href={`/lista/${event.slug}`} className="text-presentix-700 hover:underline" target="_blank">Ver lista pública</Link>
           </p>
         </div>
       </div>

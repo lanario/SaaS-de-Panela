@@ -43,7 +43,7 @@ export function ConfirmarCompraClient({
         </p>
         <a
           href="/"
-          className="inline-block rounded-xl bg-primary-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-primary-600 transition"
+          className="inline-block rounded-xl bg-presentix-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-presentix-800 transition"
         >
           Voltar ao início
         </a>
@@ -57,9 +57,9 @@ export function ConfirmarCompraClient({
       <p className="text-sm text-gray-500 mb-6">
         Clique no botão abaixo para confirmar que você já comprou este presente.
       </p>
-      <div className="bg-primary-100 rounded-xl p-4 mb-6">
+      <div className="bg-presentix-50 rounded-xl p-4 mb-6">
         <p className="text-sm text-gray-600 font-medium">{itemName}</p>
-        <p className="text-lg font-bold text-primary-600 mt-1">R$ {amount.toFixed(2)}</p>
+        <p className="text-lg font-bold text-presentix-800 mt-1">R$ {amount.toFixed(2)}</p>
         {buyerName && (
           <p className="text-xs text-gray-500 mt-1">por {buyerName}</p>
         )}
@@ -73,7 +73,7 @@ export function ConfirmarCompraClient({
         type="button"
         onClick={handleConfirm}
         disabled={status === "loading"}
-        className="w-full bg-primary-500 text-white py-3 rounded-xl text-sm font-semibold hover:bg-primary-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full bg-presentix-700 text-white py-3 rounded-xl text-sm font-semibold hover:bg-presentix-800 transition disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {status === "loading" ? "Confirmando…" : "Sim, já comprei"}
       </button>

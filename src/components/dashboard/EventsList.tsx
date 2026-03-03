@@ -59,7 +59,7 @@ export function EventsList({ events }: EventsListProps) {
         <motion.button
           type="button"
           onClick={() => setCreateOpen(true)}
-          className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-sm font-semibold bg-sage-500 text-white hover:bg-sage-600 transition-colors shadow-md shadow-sage-500/25 hover:shadow-lg hover:shadow-sage-500/30"
+          className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-sm font-semibold bg-presentix-700 text-white hover:bg-presentix-800 transition-colors shadow-md shadow-presentix-700/25 hover:shadow-lg hover:shadow-presentix-800/30"
           aria-label="Criar novo evento"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
@@ -70,16 +70,16 @@ export function EventsList({ events }: EventsListProps) {
 
       {events.length === 0 ? (
         <motion.div
-          className="rounded-2xl border border-white/60 bg-white/70 backdrop-blur-md p-12 text-center shadow-sm"
+          className="rounded-2xl border border-gray-100 bg-white/90 backdrop-blur-md p-12 text-center shadow-sm"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
         >
-          <p className="text-gray-500 mb-6">Nenhum evento criado ainda.</p>
+          <p className="text-gray-600 mb-6">Nenhum evento criado ainda.</p>
           <motion.button
             type="button"
             onClick={() => setCreateOpen(true)}
-            className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-sm font-semibold bg-sage-500 text-white hover:bg-sage-600 transition-colors shadow-md"
+            className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-sm font-semibold bg-presentix-700 text-white hover:bg-presentix-800 transition-colors shadow-md"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >

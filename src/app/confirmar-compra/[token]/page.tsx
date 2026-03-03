@@ -32,7 +32,7 @@ export default async function ConfirmarCompraPage({ params }: PageProps) {
     .single();
 
   return (
-    <div className="min-h-screen bg-primary-100 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-white flex items-center justify-center px-4">
       <ConfirmarCompraClient
         token={token}
         itemName={item?.name ?? "Presente"}

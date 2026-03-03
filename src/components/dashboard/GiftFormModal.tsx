@@ -89,7 +89,8 @@ export function GiftFormModal({
           />
         </Dialog.Overlay>
         <Dialog.Content asChild>
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-50 overflow-y-auto">
+            <div className="flex min-h-dvh items-center justify-center p-4 py-8">
             <motion.div
               className="w-full max-w-sm bg-white rounded-2xl shadow-xl p-6 max-h-[85vh] overflow-y-auto"
               initial={{ opacity: 0, scale: 0.96 }}
@@ -119,7 +120,7 @@ export function GiftFormModal({
                 placeholder="Ex: Jogo de Panelas..."
                 required
                 defaultValue={item?.name}
-                className="mt-1 w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-300"
+                className="mt-1 w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-presentix-300"
               />
             </div>
             <div>
@@ -134,7 +135,7 @@ export function GiftFormModal({
                 placeholder="https://..."
                 required
                 defaultValue={item?.product_url}
-                className="mt-1 w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-300"
+                className="mt-1 w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-presentix-300"
               />
             </div>
             <div>
@@ -149,13 +150,13 @@ export function GiftFormModal({
                   placeholder="Preencha o link acima e clique em Buscar, ou cole aqui"
                   value={imageUrl}
                   onChange={(e) => setImageUrl(e.target.value)}
-                  className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-300"
+                  className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-presentix-300"
                 />
                 <button
                   type="button"
                   onClick={handleFetchImage}
                   disabled={imageLoading}
-                  className="shrink-0 px-3 py-2 text-sm font-semibold rounded-lg bg-primary-100 text-primary-600 hover:bg-primary-200 transition disabled:opacity-50"
+                  className="shrink-0 px-3 py-2 text-sm font-semibold rounded-lg bg-presentix-100 text-presentix-800 hover:bg-presentix-200 transition disabled:opacity-50"
                 >
                   {imageLoading ? "Buscando…" : "Buscar"}
                 </button>
@@ -181,7 +182,7 @@ export function GiftFormModal({
                 required
                 inputMode="decimal"
                 defaultValue={item ? String(Number(item.price)) : undefined}
-                className="mt-1 w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-300"
+                className="mt-1 w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-presentix-300"
               />
             </div>
             <div>
@@ -195,7 +196,7 @@ export function GiftFormModal({
                 type="text"
                 placeholder="Ex: Cozinha, Eletrodomésticos ou digite uma nova"
                 defaultValue={item?.category ?? ""}
-                className="mt-1 w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-300"
+                className="mt-1 w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-presentix-300"
                 autoComplete="off"
               />
               <datalist id="category-list">
@@ -222,13 +223,14 @@ export function GiftFormModal({
               </button>
               <button
                 type="submit"
-                className="flex-1 bg-primary-500 text-white py-2 rounded-xl text-sm font-semibold hover:bg-primary-600 transition"
+                className="flex-1 bg-presentix-700 text-white py-2 rounded-xl text-sm font-semibold hover:bg-presentix-800 transition"
               >
                 {isEdit ? "Salvar" : "Adicionar"}
               </button>
             </div>
           </form>
             </motion.div>
+            </div>
           </div>
         </Dialog.Content>
       </Dialog.Portal>

@@ -41,7 +41,8 @@ export function EventFormModal({ open, onOpenChange, event, onSuccess }: EventFo
           />
         </Dialog.Overlay>
         <Dialog.Content asChild>
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-50 overflow-y-auto">
+            <div className="flex min-h-dvh items-center justify-center p-4 py-8">
             <motion.div
               className="w-full max-w-sm bg-white rounded-2xl shadow-xl p-6 max-h-[85vh] overflow-y-auto flex flex-col"
               initial={{ opacity: 0, scale: 0.96 }}
@@ -69,7 +70,7 @@ export function EventFormModal({ open, onOpenChange, event, onSuccess }: EventFo
                 defaultValue={event?.title}
                 placeholder="Ex: Ana & Pedro"
                 required
-                className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent"
+                className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-presentix-300 focus:border-transparent"
               />
             </div>
             <div className="space-y-1.5">
@@ -82,7 +83,7 @@ export function EventFormModal({ open, onOpenChange, event, onSuccess }: EventFo
                 type="text"
                 defaultValue={event?.slug}
                 placeholder="ana-pedro"
-                className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent"
+                className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-presentix-300 focus:border-transparent"
               />
               <p className="text-xs text-gray-400 leading-relaxed">
                 Usado na URL: /lista/[slug]. Deixe em branco para gerar do título.
@@ -97,7 +98,7 @@ export function EventFormModal({ open, onOpenChange, event, onSuccess }: EventFo
                 name="event_date"
                 type="date"
                 defaultValue={event?.event_date ?? ""}
-                className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent [color-scheme:light]"
+                className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-presentix-300 focus:border-transparent [color-scheme:light]"
                 lang="pt-BR"
               />
               <p className="text-xs text-gray-400 leading-relaxed">
@@ -116,7 +117,7 @@ export function EventFormModal({ open, onOpenChange, event, onSuccess }: EventFo
                     type="text"
                     defaultValue={event?.pix_key ?? ""}
                     placeholder="CPF, e-mail, celular ou chave aleatória"
-                    className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent"
+                    className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-presentix-300 focus:border-transparent"
                   />
                   <p className="text-xs text-gray-400 leading-relaxed">
                     Para receber pagamentos por PIX na lista de presentes.
@@ -130,7 +131,7 @@ export function EventFormModal({ open, onOpenChange, event, onSuccess }: EventFo
                     id="pix_key_type"
                     name="pix_key_type"
                     defaultValue={event?.pix_key_type ?? ""}
-                    className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent bg-white"
+                    className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-presentix-300 focus:border-transparent bg-white"
                   >
                     <option value="">Selecione</option>
                     <option value="cpf">CPF</option>
@@ -157,13 +158,14 @@ export function EventFormModal({ open, onOpenChange, event, onSuccess }: EventFo
               </button>
               <button
                 type="submit"
-                className="flex-1 h-10 bg-primary-500 text-white rounded-xl text-sm font-semibold hover:bg-primary-600 transition-colors"
+                className="flex-1 h-10 bg-presentix-700 text-white rounded-xl text-sm font-semibold hover:bg-presentix-800 transition-colors"
               >
                 {isEdit ? "Salvar" : "Criar"}
               </button>
             </div>
           </form>
             </motion.div>
+            </div>
           </div>
         </Dialog.Content>
       </Dialog.Portal>

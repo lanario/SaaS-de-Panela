@@ -27,11 +27,11 @@ export function EventStatsSummary({
         <p className="text-xs text-gray-500 mt-1">Comprado</p>
       </div>
       <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-        <p className="text-2xl font-bold text-primary-500">R$ {restante.toFixed(2)}</p>
+        <p className="text-2xl font-bold text-presentix-600">R$ {restante.toFixed(2)}</p>
         <p className="text-xs text-gray-500 mt-1">Restante</p>
       </div>
       <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-        <p className="text-2xl font-bold text-primary-600">{progressPercent}%</p>
+        <p className="text-2xl font-bold text-presentix-700">{progressPercent}%</p>
         <p className="text-xs text-gray-500 mt-1">
           {compradoCount}/{totalItems} itens comprados
         </p>

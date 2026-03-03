@@ -43,7 +43,8 @@ export function DeleteEventDialog({ event, open, onOpenChange, onDeleted }: Dele
           />
         </Dialog.Overlay>
         <Dialog.Content asChild>
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-50 overflow-y-auto">
+            <div className="flex min-h-dvh items-center justify-center p-4 py-8">
             <motion.div
               className="w-full max-w-sm bg-white rounded-2xl shadow-xl p-6"
               initial={{ opacity: 0, scale: 0.96 }}
@@ -87,6 +88,7 @@ export function DeleteEventDialog({ event, open, onOpenChange, onDeleted }: Dele
             </button>
           </div>
             </motion.div>
+            </div>
           </div>
         </Dialog.Content>
       </Dialog.Portal>

@@ -44,10 +44,10 @@ export function EventCard({ event }: EventCardProps) {
     daysLeft === null
       ? ""
       : daysLeft < 0
-        ? "bg-gray-100 text-gray-500"
+        ? "bg-gray-100 text-gray-600"
         : daysLeft <= 7
-          ? "bg-terracotta-200 text-terracotta-500"
-          : "bg-sage-100 text-sage-500";
+          ? "bg-presentix-200 text-presentix-800"
+          : "bg-presentix-100 text-presentix-700";
   const badgeLabel =
     daysLeft === null ? "" : daysLeft < 0 ? "Encerrado" : daysLeft === 0 ? "Hoje" : "Faltam " + daysLeft + " dias";
 

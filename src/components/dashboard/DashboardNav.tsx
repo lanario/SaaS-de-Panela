@@ -23,7 +23,7 @@ export function DashboardNav({ userEmail }: DashboardNavProps) {
       <DropdownMenu.Trigger asChild>
         <button
           type="button"
-          className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-gray-600 hover:bg-primary-100 hover:text-primary-600 transition focus:outline-none focus:ring-2 focus:ring-primary-300"
+          className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-gray-700 hover:bg-presentix-50 hover:text-presentix-800 transition focus:outline-none focus:ring-2 focus:ring-presentix-300"
           aria-label="Abrir menu do usuário"
         >
           <FiUser className="text-lg" />
@@ -31,8 +31,8 @@ export function DashboardNav({ userEmail }: DashboardNavProps) {
         </button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Portal>
-        <DropdownMenu.Content
-          className="min-w-[180px] bg-white rounded-xl shadow-lg border border-gray-100 py-1 z-50"
+          <DropdownMenu.Content
+          className="min-w-[180px] bg-white rounded-xl shadow-lg border border-gray-100 py-1 z-50 animate-fade-in-up"
           sideOffset={8}
           align="end"
         >
@@ -43,7 +43,7 @@ export function DashboardNav({ userEmail }: DashboardNavProps) {
           <DropdownMenu.Item asChild>
             <Link
               href="/dashboard"
-              className="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-primary-100 hover:text-primary-600 focus:bg-primary-100 focus:outline-none"
+              className="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-presentix-50 hover:text-presentix-800 focus:bg-presentix-50 focus:outline-none"
             >
               <FiUser /> Meus eventos
             </Link>

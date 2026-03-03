@@ -139,14 +139,14 @@ export function EventItemsManager({ event, eventCategories, items, stats, pendin
           <button
             type="button"
             onClick={() => setAddCategoryOpen(true)}
-            className="inline-flex items-center gap-2 h-10 px-3 rounded-xl text-sm font-semibold border border-primary-300 text-primary-600 bg-white hover:bg-primary-50 transition-colors"
+            className="inline-flex items-center gap-2 h-10 px-3 rounded-xl text-sm font-semibold border border-presentix-300 text-presentix-800 bg-white hover:bg-presentix-50 transition-colors"
             aria-label="Adicionar categoria"
           >
             <FiTag className="text-sm" /> Adicionar categoria
           </button>
           <Select.Root value={filterStatus} onValueChange={setFilterStatus}>
             <Select.Trigger
-              className="inline-flex items-center justify-between gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm min-w-[130px] focus:outline-none focus:ring-2 focus:ring-primary-300"
+              className="inline-flex items-center justify-between gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm min-w-[130px] focus:outline-none focus:ring-2 focus:ring-presentix-300"
               aria-label="Filtrar por status"
             >
               <Select.Value placeholder="Status" />
@@ -158,7 +158,7 @@ export function EventItemsManager({ event, eventCategories, items, stats, pendin
                   <Select.Item
                     key={opt.value}
                     value={opt.value}
-                    className="px-3 py-2 text-sm cursor-pointer focus:bg-primary-100 focus:outline-none data-[highlighted]:bg-primary-100"
+                    className="px-3 py-2 text-sm cursor-pointer focus:bg-presentix-100 focus:outline-none data-[highlighted]:bg-presentix-100"
                   >
                     <Select.ItemText>{opt.label}</Select.ItemText>
                   </Select.Item>
@@ -168,7 +168,7 @@ export function EventItemsManager({ event, eventCategories, items, stats, pendin
           </Select.Root>
           <Select.Root value={filterCategory} onValueChange={setFilterCategory}>
             <Select.Trigger
-              className="inline-flex items-center justify-between gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm min-w-[140px] focus:outline-none focus:ring-2 focus:ring-primary-300"
+              className="inline-flex items-center justify-between gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm min-w-[140px] focus:outline-none focus:ring-2 focus:ring-presentix-300"
               aria-label="Filtrar por categoria"
             >
               <Select.Value placeholder="Categoria" />
@@ -178,7 +178,7 @@ export function EventItemsManager({ event, eventCategories, items, stats, pendin
               <Select.Content className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden z-50">
                 <Select.Item
                   value="todos"
-                  className="px-3 py-2 text-sm cursor-pointer focus:bg-primary-100 focus:outline-none data-[highlighted]:bg-primary-100"
+                  className="px-3 py-2 text-sm cursor-pointer focus:bg-presentix-100 focus:outline-none data-[highlighted]:bg-presentix-100"
                 >
                   <Select.ItemText>Todos</Select.ItemText>
                 </Select.Item>
@@ -188,7 +188,7 @@ export function EventItemsManager({ event, eventCategories, items, stats, pendin
                     <Select.Item
                       key={cat}
                       value={cat}
-                      className="px-3 py-2 text-sm cursor-pointer focus:bg-primary-100 focus:outline-none data-[highlighted]:bg-primary-100"
+                      className="px-3 py-2 text-sm cursor-pointer focus:bg-presentix-100 focus:outline-none data-[highlighted]:bg-presentix-100"
                     >
                       <Select.ItemText>{cat}</Select.ItemText>
                     </Select.Item>
@@ -374,7 +374,7 @@ function ItemRow({ item, eventId, onStatusUpdated, onDeleted, onEdit }: ItemRowP
             href={item.product_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-primary-600"
+            className="hover:text-presentix-700"
           >
             {item.name}
           </a>
@@ -441,7 +441,7 @@ function ItemRow({ item, eventId, onStatusUpdated, onDeleted, onEdit }: ItemRowP
                 }
               }}
               placeholder="Nome do comprador"
-              className="w-full max-w-[120px] text-xs border border-gray-200 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-primary-300"
+              className="w-full max-w-[120px] text-xs border border-gray-200 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-presentix-300"
             />
           ) : (
             <span className="text-gray-400 text-xs">—</span>
@@ -454,7 +454,7 @@ function ItemRow({ item, eventId, onStatusUpdated, onDeleted, onEdit }: ItemRowP
                 type="button"
                 onClick={() => onEdit(item)}
                 disabled={isUpdating}
-                className="p-2 text-primary-600 hover:bg-primary-50 rounded-lg transition disabled:opacity-50"
+                className="p-2 text-presentix-700 hover:bg-presentix-50 rounded-lg transition disabled:opacity-50"
                 aria-label="Editar presente"
               >
                 <FiEdit2 className="text-sm" />
@@ -476,7 +476,8 @@ function ItemRow({ item, eventId, onStatusUpdated, onDeleted, onEdit }: ItemRowP
       <Dialog.Root open={deleteOpen} onOpenChange={setDeleteOpen}>
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 bg-black/50 z-50" />
-          <Dialog.Content className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <Dialog.Content className="fixed inset-0 z-50 overflow-y-auto">
+            <div className="flex min-h-dvh items-center justify-center p-4 py-8">
             <div className="w-full max-w-sm bg-white rounded-2xl shadow-xl p-6">
             <Dialog.Title className="text-lg font-bold text-gray-800 mb-2">
               Excluir presente?
@@ -501,6 +502,7 @@ function ItemRow({ item, eventId, onStatusUpdated, onDeleted, onEdit }: ItemRowP
               >
                 {isUpdating ? "Excluindo…" : "Excluir"}
               </button>
+            </div>
             </div>
             </div>
           </Dialog.Content>

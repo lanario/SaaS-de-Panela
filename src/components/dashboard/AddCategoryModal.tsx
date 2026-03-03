@@ -67,7 +67,8 @@ export function AddCategoryModal({
           />
         </Dialog.Overlay>
         <Dialog.Content asChild>
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-50 overflow-y-auto">
+            <div className="flex min-h-dvh items-center justify-center p-4 py-8">
             <motion.div
               className="w-full max-w-sm bg-white rounded-2xl shadow-xl p-6"
               initial={{ opacity: 0, scale: 0.96 }}
@@ -92,7 +93,7 @@ export function AddCategoryModal({
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Ex: Decoração"
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent"
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-presentix-300 focus:border-transparent"
                   autoFocus
                   disabled={isSubmitting}
                 />
@@ -114,13 +115,14 @@ export function AddCategoryModal({
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex-1 h-10 bg-primary-500 text-white rounded-xl text-sm font-semibold hover:bg-primary-600 transition-colors disabled:opacity-50"
+                  className="flex-1 h-10 bg-presentix-700 text-white rounded-xl text-sm font-semibold hover:bg-presentix-800 transition-colors disabled:opacity-50"
                 >
                   {isSubmitting ? "Adicionando…" : "Adicionar"}
                 </button>
               </div>
             </form>
             </motion.div>
+            </div>
           </div>
         </Dialog.Content>
       </Dialog.Portal>

@@ -38,22 +38,22 @@ export function DashboardStats({
       label: "Eventos ativos",
       value: activeEventsCount,
       icon: FiCalendar,
-      color: "text-sage-500",
-      bgGlow: "shadow-[0_0_30px_-8px_rgba(107,138,90,0.35)]",
+      color: "text-presentix-700",
+      bgGlow: "shadow-[0_0_30px_-8px_rgba(157,23,77,0.25)]",
     },
     {
       label: "Valor arrecadado",
       value: `R$ ${totalRaised.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
       icon: FiDollarSign,
-      color: "text-terracotta-500",
-      bgGlow: "shadow-[0_0_30px_-8px_rgba(184,92,58,0.3)]",
+      color: "text-presentix-600",
+      bgGlow: "shadow-[0_0_30px_-8px_rgba(219,39,119,0.2)]",
     },
     {
       label: "Presentes recebidos",
       value: giftsReceivedCount,
       icon: FiGift,
-      color: "text-serenity-400",
-      bgGlow: "shadow-[0_0_30px_-8px_rgba(122,155,184,0.35)]",
+      color: "text-presentix-500",
+      bgGlow: "shadow-[0_0_30px_-8px_rgba(236,72,153,0.2)]",
     },
   ];
 
@@ -68,7 +68,7 @@ export function DashboardStats({
         <motion.div
           key={stat.label}
           variants={item}
-          className="relative rounded-2xl border border-white/60 bg-white/70 backdrop-blur-md p-5 shadow-sm hover:shadow-md transition-shadow"
+          className="relative rounded-2xl border border-gray-100 bg-white/90 backdrop-blur-md p-5 shadow-sm hover:shadow-md transition-shadow"
         >
           <div className={`inline-flex p-2 rounded-xl bg-white/80 ${stat.bgGlow}`}>
             <stat.icon className={`text-xl ${stat.color}`} aria-hidden />

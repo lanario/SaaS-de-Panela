@@ -48,7 +48,8 @@ export function ReserveModal({ item, event, open, onOpenChange }: ReserveModalPr
           />
         </Dialog.Overlay>
         <Dialog.Content asChild>
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-50 overflow-y-auto">
+            <div className="flex min-h-dvh items-center justify-center p-4 py-8">
             <motion.div
               className="w-full max-w-sm bg-white rounded-2xl shadow-xl p-6 max-h-[85vh] overflow-y-auto"
               initial={{ opacity: 0, scale: 0.96 }}
@@ -77,7 +78,7 @@ export function ReserveModal({ item, event, open, onOpenChange }: ReserveModalPr
                     type="text"
                     placeholder="Ex: Ana Paula"
                     required
-                    className="mt-1 w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-300"
+                    className="mt-1 w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-presentix-300"
                   />
                 </div>
                 {state?.error && (
@@ -95,7 +96,7 @@ export function ReserveModal({ item, event, open, onOpenChange }: ReserveModalPr
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 bg-primary-500 text-white py-2 rounded-xl text-sm font-semibold hover:bg-primary-600 transition"
+                    className="flex-1 bg-presentix-700 text-white py-2 rounded-xl text-sm font-semibold hover:bg-presentix-800 transition"
                   >
                     Reservar
                   </button>
@@ -123,7 +124,7 @@ export function ReserveModal({ item, event, open, onOpenChange }: ReserveModalPr
                     <button
                       type="button"
                       onClick={handleCopyLink}
-                      className="flex-shrink-0 text-xs bg-primary-500 text-white px-3 py-1.5 rounded-lg hover:bg-primary-600 transition"
+                      className="flex-shrink-0 text-xs bg-presentix-700 text-white px-3 py-1.5 rounded-lg hover:bg-presentix-800 transition"
                     >
                       {copied ? "Copiado!" : "Copiar"}
                     </button>
@@ -133,7 +134,7 @@ export function ReserveModal({ item, event, open, onOpenChange }: ReserveModalPr
                   href={`/confirmar-compra/${state.confirmToken}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 inline-block text-sm font-semibold text-primary-600 hover:underline"
+                  className="mt-4 inline-block text-sm font-semibold text-presentix-700 hover:underline"
                 >
                   Abrir página de confirmação →
                 </a>
@@ -148,6 +149,7 @@ export function ReserveModal({ item, event, open, onOpenChange }: ReserveModalPr
             </>
           )}
             </motion.div>
+            </div>
           </div>
         </Dialog.Content>
       </Dialog.Portal>
