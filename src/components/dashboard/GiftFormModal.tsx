@@ -217,21 +217,16 @@ export function GiftFormModal({
               </p>
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
-                  type="hidden"
-                  name="allow_product_link"
-                  value="off"
-                />
-                <input
                   type="checkbox"
                   name="allow_product_link"
                   value="on"
                   defaultChecked={item?.allow_product_link !== false}
                   className="rounded border-gray-300 text-presentix-600 focus:ring-presentix-300"
                 />
+                <input type="hidden" name="allow_product_link" value="off" />
                 <span className="text-sm text-gray-700">Exibir link do produto (Comprar)</span>
               </label>
               <label className="flex items-center gap-2 cursor-pointer">
-                <input type="hidden" name="allow_pix" value="off" />
                 <input
                   type="checkbox"
                   name="allow_pix"
@@ -239,10 +234,10 @@ export function GiftFormModal({
                   defaultChecked={item?.allow_pix !== false}
                   className="rounded border-gray-300 text-presentix-600 focus:ring-presentix-300"
                 />
+                <input type="hidden" name="allow_pix" value="off" />
                 <span className="text-sm text-gray-700">Permitir pagamento por PIX</span>
               </label>
               <label className="flex items-center gap-2 cursor-pointer">
-                <input type="hidden" name="allow_reserve" value="off" />
                 <input
                   type="checkbox"
                   name="allow_reserve"
@@ -250,6 +245,7 @@ export function GiftFormModal({
                   defaultChecked={item?.allow_reserve !== false}
                   className="rounded border-gray-300 text-presentix-600 focus:ring-presentix-300"
                 />
+                <input type="hidden" name="allow_reserve" value="off" />
                 <span className="text-sm text-gray-700">Permitir reservar o presente</span>
               </label>
             </fieldset>
