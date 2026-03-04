@@ -22,8 +22,8 @@ export async function createGiftItem(
   const priceStr = formData.get("price") as string | null;
   const category = formData.get("category") as string | null;
 
-  if (!eventId || !name || !productUrl || !priceStr) {
-    return { error: "Preencha todos os campos obrigatórios." };
+  if (!eventId || !name || !priceStr) {
+    return { error: "Preencha nome do produto e valor." };
   }
 
   if (imageUrl) {
@@ -70,7 +70,7 @@ export async function createGiftItem(
   const { error } = await supabase.from("gift_items").insert({
     event_id: eventId,
     name,
-    product_url: productUrl,
+    product_url: productUrl || "",
     image_url: imageUrl,
     price,
     category: cat,
@@ -108,8 +108,8 @@ export async function updateGiftItem(
   const allowPix = formData.get("allow_pix") === "on";
   const allowReserve = formData.get("allow_reserve") === "on";
 
-  if (!giftItemId || !eventId || !name || !productUrl || !priceStr) {
-    return { error: "Preencha todos os campos obrigatórios." };
+  if (!giftItemId || !eventId || !name || !priceStr) {
+    return { error: "Preencha nome do produto e valor." };
   }
 
   if (imageUrl) {
@@ -153,7 +153,7 @@ export async function updateGiftItem(
     .from("gift_items")
     .update({
       name,
-      product_url: productUrl,
+      product_url: productUrl || "",
       image_url: imageUrl,
       price,
       category: cat,

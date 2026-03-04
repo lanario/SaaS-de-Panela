@@ -57,7 +57,7 @@ export function GiftFormModal({
   async function handleFetchImage() {
     const url = productUrlRef.current?.value?.trim();
     if (!url) {
-      setImageError("Preencha o link do produto primeiro.");
+      setImageError("Preencha o link do produto para buscar a imagem automaticamente.");
       return;
     }
     setImageLoading(true);
@@ -125,15 +125,14 @@ export function GiftFormModal({
             </div>
             <div>
               <Label htmlFor="product_url" className="text-xs font-semibold text-gray-500 uppercase">
-                Link do Produto
+                Link do Produto (opcional)
               </Label>
               <input
                 ref={productUrlRef}
                 id="product_url"
                 name="product_url"
-                type="url"
+                type="text"
                 placeholder="https://..."
-                required
                 defaultValue={item?.product_url}
                 className="mt-1 w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-presentix-300"
               />
@@ -146,7 +145,7 @@ export function GiftFormModal({
                 <input
                   id="image_url"
                   name="image_url"
-                  type="url"
+                  type="text"
                   placeholder="Preencha o link acima e clique em Buscar, ou cole aqui"
                   value={imageUrl}
                   onChange={(e) => setImageUrl(e.target.value)}
@@ -187,7 +186,7 @@ export function GiftFormModal({
             </div>
             <div>
               <Label htmlFor="category" className="text-xs font-semibold text-gray-500 uppercase">
-                Categoria
+                Categoria (opcional)
               </Label>
               <input
                 id="category"

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useFormState } from "react-dom";
 import { motion } from "framer-motion";
 import * as Dialog from "@radix-ui/react-dialog";
@@ -18,15 +18,36 @@ interface EventFormModalProps {
 export function EventFormModal({ open, onOpenChange, event, onSuccess }: EventFormModalProps) {
   const isEdit = Boolean(event?.id);
   const action = isEdit ? updateEvent : createEvent;
+  const successFiredRef = useRef(false);
 
   const [state, formAction] = useFormState(action, null);
 
   useEffect(() => {
-    if (state && !state.error) {
-      onOpenChange(false);
-      onSuccess?.();
+    if (!state || state.error) {
+      return;
     }
+    if (successFiredRef.current) {
+      return;
+    }
+    successFiredRef.current = true;
+    onOpenChange(false);
+    // Defer callback para evitar exceção durante re-render do modal (toast + router.refresh)
+    const callback = onSuccess;
+    const id = setTimeout(() => {
+      try {
+        callback?.();
+      } catch (e) {
+        console.error("EventFormModal onSuccess:", e);
+      }
+    }, 0);
+    return () => clearTimeout(id);
   }, [state, onOpenChange, onSuccess]);
+
+  useEffect(() => {
+    if (open) {
+      successFiredRef.current = false;
+    }
+  }, [open]);
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
