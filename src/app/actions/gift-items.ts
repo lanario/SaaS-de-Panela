@@ -63,6 +63,10 @@ export async function createGiftItem(
     return { error: "Evento não encontrado ou você não tem permissão." };
   }
 
+  const allowProductLink = formData.get("allow_product_link") === "on";
+  const allowPix = formData.get("allow_pix") === "on";
+  const allowReserve = formData.get("allow_reserve") === "on";
+
   const { error } = await supabase.from("gift_items").insert({
     event_id: eventId,
     name,
@@ -71,6 +75,9 @@ export async function createGiftItem(
     price,
     category: cat,
     status: "disponivel",
+    allow_product_link: allowProductLink,
+    allow_pix: allowPix,
+    allow_reserve: allowReserve,
   });
 
   if (error) {
@@ -97,6 +104,9 @@ export async function updateGiftItem(
   const imageUrl = (formData.get("image_url") as string | null)?.trim() || null;
   const priceStr = formData.get("price") as string | null;
   const category = formData.get("category") as string | null;
+  const allowProductLink = formData.get("allow_product_link") === "on";
+  const allowPix = formData.get("allow_pix") === "on";
+  const allowReserve = formData.get("allow_reserve") === "on";
 
   if (!giftItemId || !eventId || !name || !productUrl || !priceStr) {
     return { error: "Preencha todos os campos obrigatórios." };
@@ -147,6 +157,9 @@ export async function updateGiftItem(
       image_url: imageUrl,
       price,
       category: cat,
+      allow_product_link: allowProductLink,
+      allow_pix: allowPix,
+      allow_reserve: allowReserve,
       updated_at: new Date().toISOString(),
     })
     .eq("id", giftItemId)

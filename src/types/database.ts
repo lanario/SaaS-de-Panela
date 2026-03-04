@@ -64,6 +64,12 @@ export interface GiftItem {
   status: GiftItemStatus;
   sort_order: number;
   buyer_name: string | null;
+  /** Exibir link do produto na lista pública (editável) */
+  allow_product_link?: boolean;
+  /** Permitir pagamento por PIX neste item (editável) */
+  allow_pix?: boolean;
+  /** Permitir reservar este presente (editável) */
+  allow_reserve?: boolean;
   created_at: string;
   updated_at: string;
 }

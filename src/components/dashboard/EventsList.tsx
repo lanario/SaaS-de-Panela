@@ -32,8 +32,9 @@ export function EventsList({ events }: EventsListProps) {
   const { toast } = useToast();
   const router = useRouter();
 
-  const totalRaised = events.reduce((acc, e) => acc + (Number(e.totalRaised) || 0), 0);
-  const giftsReceived = events.reduce((acc, e) => acc + (Number(e.boughtCount) || 0), 0);
+  const safeEvents = Array.isArray(events) ? events : [];
+  const totalRaised = safeEvents.reduce((acc, e) => acc + (Number(e?.totalRaised) ?? 0), 0);
+  const giftsReceived = safeEvents.reduce((acc, e) => acc + (Number(e?.boughtCount) ?? 0), 0);
 
   function handleCreateSuccess() {
     toast({ title: "Evento criado!", variant: "success" });
@@ -45,7 +46,7 @@ export function EventsList({ events }: EventsListProps) {
       {/* Header com stats */}
       <div className="mb-8">
         <DashboardStats
-          activeEventsCount={events.length}
+          activeEventsCount={safeEvents.length}
           totalRaised={totalRaised}
           giftsReceivedCount={giftsReceived}
         />
@@ -68,7 +69,7 @@ export function EventsList({ events }: EventsListProps) {
         </motion.button>
       </div>
 
-      {events.length === 0 ? (
+      {safeEvents.length === 0 ? (
         <motion.div
           className="rounded-2xl border border-gray-100 bg-white/90 backdrop-blur-md p-12 text-center shadow-sm"
           initial={{ opacity: 0, y: 16 }}
@@ -93,11 +94,13 @@ export function EventsList({ events }: EventsListProps) {
           initial="hidden"
           animate="show"
         >
-          {events.map((event) => (
-            <motion.div key={event.id} variants={cardVariants}>
-              <EventCard event={event} />
-            </motion.div>
-          ))}
+          {safeEvents.map((event, index) =>
+            event ? (
+              <motion.div key={event.id ?? `event-${index}`} variants={cardVariants}>
+                <EventCard event={event} />
+              </motion.div>
+            ) : null
+          )}
         </motion.div>
       )}
 

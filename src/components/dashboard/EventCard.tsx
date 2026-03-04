@@ -26,10 +26,12 @@ export function EventCard({ event }: EventCardProps) {
   const { toast } = useToast();
   const router = useRouter();
 
-  const listUrl = "/lista/" + (event.short_id ?? event.slug);
+  const totalItems = Number(event.totalItems) ?? 0;
+  const boughtCount = Number(event.boughtCount) ?? 0;
+  const listUrl = "/lista/" + (event.short_id ?? event.slug ?? "");
   const progressPercent =
-    event.totalItems > 0 ? Math.round((event.boughtCount / event.totalItems) * 100) : 0;
-  const daysLeft = daysUntil(event.event_date);
+    totalItems > 0 ? Math.round((boughtCount / totalItems) * 100) : 0;
+  const daysLeft = daysUntil(event.event_date ?? null);
 
   const handleEditSuccess = () => {
     toast({ title: "Evento atualizado!", variant: "success" });
@@ -53,7 +55,7 @@ export function EventCard({ event }: EventCardProps) {
 
   return (
     <EventCardView
-      event={event}
+      event={{ ...event, totalItems, boughtCount, totalRaised: Number(event.totalRaised) ?? 0 }}
       listUrl={listUrl}
       progressPercent={progressPercent}
       daysLeft={daysLeft}

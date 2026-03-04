@@ -208,6 +208,51 @@ export function GiftFormModal({
                 Escolha uma sugestão ou digite o nome da categoria (ex: Decoração, Banheiro).
               </p>
             </div>
+            <fieldset className="rounded-xl border border-gray-200 bg-gray-50/50 p-4 space-y-3">
+              <legend className="text-xs font-semibold text-gray-500 uppercase">
+                Opções na lista pública
+              </legend>
+              <p className="text-xs text-gray-400 -mt-1">
+                Escolha o que os convidados podem fazer com este presente.
+              </p>
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="hidden"
+                  name="allow_product_link"
+                  value="off"
+                />
+                <input
+                  type="checkbox"
+                  name="allow_product_link"
+                  value="on"
+                  defaultChecked={item?.allow_product_link !== false}
+                  className="rounded border-gray-300 text-presentix-600 focus:ring-presentix-300"
+                />
+                <span className="text-sm text-gray-700">Exibir link do produto (Comprar)</span>
+              </label>
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input type="hidden" name="allow_pix" value="off" />
+                <input
+                  type="checkbox"
+                  name="allow_pix"
+                  value="on"
+                  defaultChecked={item?.allow_pix !== false}
+                  className="rounded border-gray-300 text-presentix-600 focus:ring-presentix-300"
+                />
+                <span className="text-sm text-gray-700">Permitir pagamento por PIX</span>
+              </label>
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input type="hidden" name="allow_reserve" value="off" />
+                <input
+                  type="checkbox"
+                  name="allow_reserve"
+                  value="on"
+                  defaultChecked={item?.allow_reserve !== false}
+                  className="rounded border-gray-300 text-presentix-600 focus:ring-presentix-300"
+                />
+                <span className="text-sm text-gray-700">Permitir reservar o presente</span>
+              </label>
+            </fieldset>
             {state?.error && (
               <p className="text-sm text-red-600 bg-red-50 rounded-lg px-3 py-2" role="alert">
                 {state.error}

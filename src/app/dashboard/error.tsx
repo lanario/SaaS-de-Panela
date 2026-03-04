@@ -15,6 +15,9 @@ export default function DashboardError({
     console.error("Dashboard error:", error);
   }, [error]);
 
+  const isDev = process.env.NODE_ENV === "development";
+  const message = error?.message ?? "Erro desconhecido";
+
   return (
     <div className="min-h-[50vh] flex items-center justify-center p-6">
       <div className="w-full max-w-md rounded-2xl border border-red-200 bg-red-50/80 p-8 text-center shadow-sm">
@@ -24,9 +27,15 @@ export default function DashboardError({
         <h2 className="text-lg font-semibold text-red-900 mb-2">
           Algo deu errado
         </h2>
-        <p className="text-sm text-red-700 mb-6">
+        <p className="text-sm text-red-700 mb-4">
           Ocorreu um erro ao carregar esta página. Tente novamente ou volte ao início.
         </p>
+        {isDev && (
+          <p className="text-xs font-mono text-red-800 mb-6 text-left break-words bg-red-100/80 rounded-lg p-3">
+            {message}
+          </p>
+        )}
+        {!isDev && <div className="mb-6" />}
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <button
             type="button"

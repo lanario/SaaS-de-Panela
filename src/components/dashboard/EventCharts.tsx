@@ -57,32 +57,41 @@ export function EventCharts({ items }: EventChartsProps) {
 
   return (
     <div className="grid sm:grid-cols-2 gap-6 mb-6">
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+      <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 overflow-visible">
         <h3 className="font-semibold text-gray-800 mb-4">Progresso da lista</h3>
         {progressData.length > 0 ? (
-          <ResponsiveContainer width="100%" height={220}>
-            <PieChart>
-              <Pie
-                data={progressData}
-                dataKey="value"
-                nameKey="name"
-                cx="50%"
-                cy="50%"
-                innerRadius={50}
-                outerRadius={80}
-                paddingAngle={2}
-                label={({ name, value }) =>
-                  totalValue > 0 ? `${name}: R$ ${value.toFixed(0)}` : ""
-                }
+          <div className="min-h-[220px] w-full overflow-visible">
+            <ResponsiveContainer width="100%" height={220}>
+              <PieChart
+                margin={{ top: 16, right: 90, bottom: 16, left: 90 }}
               >
-                {progressData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
-                ))}
-              </Pie>
-              <Tooltip formatter={(value: number) => [`R$ ${value.toFixed(2)}`, ""]} />
-              <Legend />
-            </PieChart>
-          </ResponsiveContainer>
+                <Pie
+                  data={progressData}
+                  dataKey="value"
+                  nameKey="name"
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={50}
+                  outerRadius={72}
+                  paddingAngle={2}
+                  label={({ name, value }) =>
+                    totalValue > 0 ? `${name}: R$ ${value.toFixed(0)}` : ""
+                  }
+                  labelLine={{ strokeWidth: 1 }}
+                >
+                  {progressData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip formatter={(value: number) => [`R$ ${value.toFixed(2)}`, ""]} />
+                <Legend
+                  verticalAlign="bottom"
+                  height={36}
+                  wrapperStyle={{ paddingTop: 8 }}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
         ) : (
           <p className="text-sm text-gray-400 text-center py-8">Nenhum dado de progresso ainda.</p>
         )}

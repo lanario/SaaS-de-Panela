@@ -100,30 +100,36 @@ export function GiftCard({ item, event }: GiftCardProps) {
           <div className="mt-auto flex flex-wrap gap-2">
             {isAvailable ? (
               <>
-                <a
-                  href={item.product_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 min-w-[80px] bg-presentix-700 text-white text-xs font-semibold py-2 rounded-xl text-center hover:bg-presentix-800 transition"
-                >
-                  🛒 Comprar
-                </a>
-                <button
-                  type="button"
-                  onClick={() => setReserveOpen(true)}
-                  className="flex-1 min-w-[80px] border border-presentix-300 text-presentix-800 text-xs font-semibold py-2 rounded-xl hover:bg-presentix-50 transition"
-                  aria-label={`Reservar ${item.name}`}
-                >
-                  📌 Reservar
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setPixOpen(true)}
-                  className="flex-1 min-w-[80px] border border-presentix-300 text-presentix-800 text-xs font-semibold py-2 rounded-xl hover:bg-presentix-50 transition"
-                  aria-label={`Pagar com PIX: ${item.name}`}
-                >
-                  💸 Pix
-                </button>
+                {item.allow_product_link !== false && (
+                  <a
+                    href={item.product_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 min-w-[80px] bg-presentix-700 text-white text-xs font-semibold py-2 rounded-xl text-center hover:bg-presentix-800 transition"
+                  >
+                    🛒 Comprar
+                  </a>
+                )}
+                {item.allow_reserve !== false && (
+                  <button
+                    type="button"
+                    onClick={() => setReserveOpen(true)}
+                    className="flex-1 min-w-[80px] border border-presentix-300 text-presentix-800 text-xs font-semibold py-2 rounded-xl hover:bg-presentix-50 transition"
+                    aria-label={`Reservar ${item.name}`}
+                  >
+                    📌 Reservar
+                  </button>
+                )}
+                {item.allow_pix !== false && (
+                  <button
+                    type="button"
+                    onClick={() => setPixOpen(true)}
+                    className="flex-1 min-w-[80px] border border-presentix-300 text-presentix-800 text-xs font-semibold py-2 rounded-xl hover:bg-presentix-50 transition"
+                    aria-label={`Pagar com PIX: ${item.name}`}
+                  >
+                    💸 Pix
+                  </button>
+                )}
               </>
             ) : (
               <div className="flex-1 bg-gray-100 text-gray-400 text-xs font-semibold py-2 rounded-xl text-center cursor-not-allowed">

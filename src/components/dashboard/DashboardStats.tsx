@@ -33,24 +33,25 @@ export function DashboardStats({
   totalRaised,
   giftsReceivedCount,
 }: DashboardStatsProps) {
+  const safeTotalRaised = Number(totalRaised) || 0;
   const stats = [
     {
       label: "Eventos ativos",
-      value: activeEventsCount,
+      value: Number(activeEventsCount) || 0,
       icon: FiCalendar,
       color: "text-presentix-700",
       bgGlow: "shadow-[0_0_30px_-8px_rgba(157,23,77,0.25)]",
     },
     {
       label: "Valor arrecadado",
-      value: `R$ ${totalRaised.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
+      value: `R$ ${safeTotalRaised.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
       icon: FiDollarSign,
       color: "text-presentix-600",
       bgGlow: "shadow-[0_0_30px_-8px_rgba(219,39,119,0.2)]",
     },
     {
       label: "Presentes recebidos",
-      value: giftsReceivedCount,
+      value: Number(giftsReceivedCount) || 0,
       icon: FiGift,
       color: "text-presentix-500",
       bgGlow: "shadow-[0_0_30px_-8px_rgba(236,72,153,0.2)]",
