@@ -17,12 +17,13 @@ export async function generatePixPayload(params: {
 
   try {
     const { PIX } = await import("gpix/dist");
+    // gpix: nome máx 25, cidade máx 15 (cidade do recebedor, não país), descrição máx 50
     const pix = PIX.static()
       .setReceiverName(receiverName.slice(0, 25))
-      .setReceiverCity("Brasil")
+      .setReceiverCity("BRASILIA")
       .setKey(pixKey.trim())
       .setAmount(amount)
-      .setDescription(description.slice(0, 72));
+      .setDescription(description.slice(0, 50));
 
     const payload = pix.getBRCode();
     return { payload };
