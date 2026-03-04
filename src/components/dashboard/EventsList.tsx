@@ -32,8 +32,8 @@ export function EventsList({ events }: EventsListProps) {
   const { toast } = useToast();
   const router = useRouter();
 
-  const totalRaised = events.reduce((acc, e) => acc + e.totalRaised, 0);
-  const giftsReceived = events.reduce((acc, e) => acc + e.boughtCount, 0);
+  const totalRaised = events.reduce((acc, e) => acc + (Number(e.totalRaised) || 0), 0);
+  const giftsReceived = events.reduce((acc, e) => acc + (Number(e.boughtCount) || 0), 0);
 
   function handleCreateSuccess() {
     toast({ title: "Evento criado!", variant: "success" });

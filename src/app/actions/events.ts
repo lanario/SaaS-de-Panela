@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { slugify } from "@/lib/utils/slug";
+import { generateShortId } from "@/lib/utils/shortId";
 import type { Event } from "@/types/database";
 
 export interface EventFormState {
@@ -37,46 +38,60 @@ export async function createEvent(
   _prev: EventFormState | null,
   formData: FormData
 ): Promise<EventFormState> {
-  const title = (formData.get("title") as string | null)?.trim();
-  const slugInput = (formData.get("slug") as string | null)?.trim();
-  const eventDateRaw = (formData.get("event_date") as string | null) || null;
-  const eventDate = normalizeEventDate(eventDateRaw);
+  try {
+    const title = (formData.get("title") as string | null)?.trim();
+    const slugInput = (formData.get("slug") as string | null)?.trim();
+    const eventDateRaw = (formData.get("event_date") as string | null) || null;
+    const eventDate = normalizeEventDate(eventDateRaw);
 
-  if (!title) {
-    return { error: "Informe o título do evento." };
-  }
-
-  const slug = slugInput ? slugify(slugInput) : slugify(title);
-
-  if (!slug) {
-    return { error: "O slug gerado é inválido. Tente outro título." };
-  }
-
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return { error: "Você precisa estar logado." };
-  }
-
-  const { error } = await supabase.from("events").insert({
-    owner_id: user.id,
-    title,
-    slug,
-    event_date: eventDate,
-  });
-
-  if (error) {
-    if (error.code === "23505") {
-      return { error: "Já existe um evento com esse slug. Escolha outro." };
+    if (!title) {
+      return { error: "Informe o título do evento." };
     }
-    return { error: error.message };
-  }
 
-  revalidatePath("/dashboard");
-  return {};
+    const slug = slugInput ? slugify(slugInput) : slugify(title);
+
+    if (!slug) {
+      return { error: "O slug gerado é inválido. Tente outro título." };
+    }
+
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      return { error: "Você precisa estar logado." };
+    }
+
+    const shortId = generateShortId();
+    const { data: inserted, error } = await supabase
+      .from("events")
+      .insert({
+        owner_id: user.id,
+        title,
+        slug,
+        short_id: shortId,
+        event_date: eventDate,
+      })
+      .select("short_id")
+      .single();
+
+    if (error) {
+      if (error.code === "23505") {
+        return { error: "Link da lista em uso. Tente criar o evento novamente." };
+      }
+      return { error: error.message };
+    }
+
+    revalidatePath("/dashboard");
+    if (inserted?.short_id) {
+      revalidatePath(`/lista/${inserted.short_id}`);
+    }
+    return {};
+  } catch (e) {
+    console.error("createEvent", e);
+    return { error: "Não foi possível criar o evento. Tente novamente." };
+  }
 }
 
 /**
@@ -88,84 +103,94 @@ export async function updateEvent(
   _prev: EventFormState | null,
   formData: FormData
 ): Promise<EventFormState> {
-  const id = formData.get("id") as string | null;
-  const title = (formData.get("title") as string | null)?.trim();
-  const slugInput = (formData.get("slug") as string | null)?.trim();
-  const eventDateRaw = (formData.get("event_date") as string | null) || null;
-  const eventDate = normalizeEventDate(eventDateRaw);
-  const pixKey = (formData.get("pix_key") as string | null)?.trim() || null;
-  const pixKeyTypeRaw = formData.get("pix_key_type") as string | null;
-  const pixKeyType =
-    pixKeyTypeRaw && PIX_KEY_TYPES.includes(pixKeyTypeRaw as (typeof PIX_KEY_TYPES)[number])
-      ? (pixKeyTypeRaw as (typeof PIX_KEY_TYPES)[number])
-      : null;
+  try {
+    const id = formData.get("id") as string | null;
+    const title = (formData.get("title") as string | null)?.trim();
+    const slugInput = (formData.get("slug") as string | null)?.trim();
+    const eventDateRaw = (formData.get("event_date") as string | null) || null;
+    const eventDate = normalizeEventDate(eventDateRaw);
+    const pixKey = (formData.get("pix_key") as string | null)?.trim() || null;
+    const pixKeyTypeRaw = formData.get("pix_key_type") as string | null;
+    const pixKeyType =
+      pixKeyTypeRaw && PIX_KEY_TYPES.includes(pixKeyTypeRaw as (typeof PIX_KEY_TYPES)[number])
+        ? (pixKeyTypeRaw as (typeof PIX_KEY_TYPES)[number])
+        : null;
 
-  if (!id) {
-    return { error: "ID do evento não informado." };
-  }
-
-  if (!title) {
-    return { error: "Informe o título do evento." };
-  }
-
-  const slug = slugInput ? slugify(slugInput) : slugify(title);
-
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return { error: "Você precisa estar logado." };
-  }
-
-  const { error } = await supabase
-    .from("events")
-    .update({
-      title,
-      slug,
-      event_date: eventDate,
-      pix_key: pixKey,
-      pix_key_type: pixKeyType,
-      updated_at: new Date().toISOString(),
-    })
-    .eq("id", id)
-    .eq("owner_id", user.id);
-
-  if (error) {
-    if (error.code === "23505") {
-      return { error: "Já existe um evento com esse slug. Escolha outro." };
+    if (!id) {
+      return { error: "ID do evento não informado." };
     }
-    return { error: error.message };
-  }
 
-  revalidatePath("/dashboard");
-  return {};
+    if (!title) {
+      return { error: "Informe o título do evento." };
+    }
+
+    const slug = slugInput ? slugify(slugInput) : slugify(title);
+
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      return { error: "Você precisa estar logado." };
+    }
+
+    const { error } = await supabase
+      .from("events")
+      .update({
+        title,
+        slug,
+        event_date: eventDate,
+        pix_key: pixKey,
+        pix_key_type: pixKeyType,
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", id)
+      .eq("owner_id", user.id);
+
+    if (error) {
+      if (error.code === "23505") {
+        return { error: "Já existe um evento com esse slug. Escolha outro." };
+      }
+      return { error: error.message };
+    }
+
+    revalidatePath("/dashboard");
+    return {};
+  } catch (e) {
+    console.error("updateEvent", e);
+    return { error: "Não foi possível atualizar o evento. Tente novamente." };
+  }
 }
 
 /**
  * Exclui evento.
  */
 export async function deleteEvent(id: string): Promise<EventFormState> {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  try {
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-  if (!user) {
-    return { error: "Você precisa estar logado." };
+    if (!user) {
+      return { error: "Você precisa estar logado." };
+    }
+
+    const { error } = await supabase
+      .from("events")
+      .delete()
+      .eq("id", id)
+      .eq("owner_id", user.id);
+
+    if (error) {
+      return { error: error.message };
+    }
+
+    revalidatePath("/dashboard");
+    return {};
+  } catch (e) {
+    console.error("deleteEvent", e);
+    return { error: "Não foi possível excluir o evento. Tente novamente." };
   }
-
-  const { error } = await supabase
-    .from("events")
-    .delete()
-    .eq("id", id)
-    .eq("owner_id", user.id);
-
-  if (error) {
-    return { error: error.message };
-  }
-
-  revalidatePath("/dashboard");
-  return {};
 }

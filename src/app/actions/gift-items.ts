@@ -54,7 +54,7 @@ export async function createGiftItem(
 
   const { data: event } = await supabase
     .from("events")
-    .select("id, slug")
+    .select("id, short_id, slug")
     .eq("id", eventId)
     .eq("owner_id", user.id)
     .single();
@@ -77,7 +77,8 @@ export async function createGiftItem(
     return { error: error.message };
   }
 
-  revalidatePath(`/lista/${event.slug}`);
+  const listSegment = event.short_id ?? event.slug;
+  revalidatePath(`/lista/${listSegment}`);
   revalidatePath(`/dashboard/eventos/${eventId}`);
   return {};
 }
@@ -129,7 +130,7 @@ export async function updateGiftItem(
 
   const { data: event } = await supabase
     .from("events")
-    .select("id, slug")
+    .select("id, short_id, slug")
     .eq("id", eventId)
     .eq("owner_id", user.id)
     .single();
@@ -155,7 +156,8 @@ export async function updateGiftItem(
     return { error: error.message };
   }
 
-  revalidatePath(`/lista/${event.slug}`);
+  const listSegment = event.short_id ?? event.slug;
+  revalidatePath(`/lista/${listSegment}`);
   revalidatePath(`/dashboard/eventos/${eventId}`);
   return {};
 }
@@ -180,7 +182,7 @@ export async function updateGiftItemStatus(
 
   const { data: event } = await supabase
     .from("events")
-    .select("id, slug")
+    .select("id, short_id, slug")
     .eq("id", eventId)
     .eq("owner_id", user.id)
     .single();
@@ -206,7 +208,8 @@ export async function updateGiftItemStatus(
     return { error: error.message };
   }
 
-  revalidatePath(`/lista/${event.slug}`);
+  const listSegment = event.short_id ?? event.slug;
+  revalidatePath(`/lista/${listSegment}`);
   revalidatePath(`/dashboard/eventos/${eventId}`);
   return {};
 }
@@ -226,7 +229,7 @@ export async function deleteGiftItem(itemId: string, eventId: string): Promise<G
 
   const { data: event } = await supabase
     .from("events")
-    .select("id, slug")
+    .select("id, short_id, slug")
     .eq("id", eventId)
     .eq("owner_id", user.id)
     .single();
@@ -245,7 +248,8 @@ export async function deleteGiftItem(itemId: string, eventId: string): Promise<G
     return { error: error.message };
   }
 
-  revalidatePath(`/lista/${event.slug}`);
+  const listSegment = event.short_id ?? event.slug;
+  revalidatePath(`/lista/${listSegment}`);
   revalidatePath(`/dashboard/eventos/${eventId}`);
   return {};
 }

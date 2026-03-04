@@ -67,7 +67,7 @@ export function ReserveModal({ item, event, open, onOpenChange }: ReserveModalPr
               </Dialog.Description>
               <form action={formAction} className="space-y-4">
                 <input type="hidden" name="gift_item_id" value={item.id} readOnly />
-                <input type="hidden" name="event_slug" value={event.slug} readOnly />
+                <input type="hidden" name="event_slug" value={event.short_id ?? event.slug} readOnly />
                 <div>
                   <Label htmlFor="buyer_name" className="text-xs font-semibold text-gray-500 uppercase">
                     Seu nome

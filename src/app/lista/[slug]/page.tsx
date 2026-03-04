@@ -1,25 +1,34 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { PublicList } from "@/components/lista/PublicList";
 import type { Event, GiftItem } from "@/types/database";
+
+/** Parâmetro da URL: pode ser short_id (8 caracteres 0-9a-z) ou slug legado. */
+const SHORT_ID_REGEX = /^[0-9a-z]{8}$/;
 
 interface PageProps {
   params: { slug: string };
 }
 
 export default async function ListaPage({ params }: PageProps) {
-  const { slug } = params;
-
+  const param = params.slug;
   const supabase = await createClient();
+
+  const isShortId = SHORT_ID_REGEX.test(param);
 
   const { data: event, error: eventError } = await supabase
     .from("events")
     .select("*")
-    .eq("slug", slug)
-    .single();
+    .eq(isShortId ? "short_id" : "slug", param)
+    .maybeSingle();
 
   if (eventError || !event) {
     notFound();
+  }
+
+  // URL antiga por slug: redireciona para a URL canônica com short_id
+  if (!isShortId && event.short_id) {
+    redirect(`/lista/${event.short_id}`);
   }
 
   const { data: items } = await supabase

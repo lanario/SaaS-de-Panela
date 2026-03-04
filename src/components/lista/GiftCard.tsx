@@ -280,7 +280,7 @@ function PixModal({ item, event, open, onOpenChange }: PixModalProps) {
               </p>
               <form action={formAction} className="space-y-3 border-t border-gray-100 pt-4">
                 <input type="hidden" name="gift_item_id" value={item.id} readOnly />
-                <input type="hidden" name="event_slug" value={event.slug} readOnly />
+                <input type="hidden" name="event_slug" value={event.short_id ?? event.slug} readOnly />
                 <div>
                   <Label htmlFor="pix_buyer_name" className="text-xs font-semibold text-gray-500 uppercase">
                     Seu nome (para registrar que vai pagar por PIX)

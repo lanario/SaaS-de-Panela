@@ -15,6 +15,8 @@ export interface Event {
   owner_id: string;
   title: string;
   slug: string;
+  /** Identificador único na URL da lista (diferencia casais com mesmo nome). Opcional até migration. */
+  short_id?: string;
   event_date: string | null;
   pix_key: string | null;
   pix_key_type: "cpf" | "email" | "phone" | "random" | null;
@@ -35,6 +37,7 @@ export interface EventInsert {
   owner_id: string;
   title: string;
   slug: string;
+  short_id: string;
   event_date?: string | null;
   pix_key?: string | null;
   pix_key_type?: Event["pix_key_type"];

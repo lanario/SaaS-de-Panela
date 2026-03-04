@@ -240,11 +240,12 @@ export async function confirmPixPurchase(
 
   const { data: ev } = await supabase
     .from("events")
-    .select("slug")
+    .select("short_id, slug")
     .eq("id", eventId)
     .single();
-  if (ev?.slug) {
-    revalidatePath(`/lista/${ev.slug}`);
+  const listSegment = ev?.short_id ?? ev?.slug;
+  if (listSegment) {
+    revalidatePath(`/lista/${listSegment}`);
   }
   revalidatePath(`/dashboard/eventos/${eventId}`);
   return {};

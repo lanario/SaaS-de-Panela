@@ -57,7 +57,7 @@ export function EventFormModal({ open, onOpenChange, event, onSuccess }: EventFo
             {isEdit ? "Atualize os dados do seu chá de panela." : "Crie sua lista de presentes."}
           </Dialog.Description>
           <form action={formAction} className="flex flex-col flex-1 min-h-0">
-            {isEdit && <input type="hidden" name="id" value={event!.id} readOnly />}
+            {isEdit && event?.id && <input type="hidden" name="id" value={event.id} readOnly />}
             <div className="overflow-y-auto pr-1 space-y-5 flex-1">
             <div className="space-y-1.5">
               <Label htmlFor="title" className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
@@ -86,7 +86,7 @@ export function EventFormModal({ open, onOpenChange, event, onSuccess }: EventFo
                 className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-presentix-300 focus:border-transparent"
               />
               <p className="text-xs text-gray-400 leading-relaxed">
-                Usado na URL: /lista/[slug]. Deixe em branco para gerar do título.
+                Apenas para exibição. A URL da lista usa um código único (ex.: /lista/abc12xyz).
               </p>
             </div>
             <div className="space-y-1.5">

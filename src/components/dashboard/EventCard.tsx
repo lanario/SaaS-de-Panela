@@ -26,7 +26,7 @@ export function EventCard({ event }: EventCardProps) {
   const { toast } = useToast();
   const router = useRouter();
 
-  const listUrl = "/lista/" + event.slug;
+  const listUrl = "/lista/" + (event.short_id ?? event.slug);
   const progressPercent =
     event.totalItems > 0 ? Math.round((event.boughtCount / event.totalItems) * 100) : 0;
   const daysLeft = daysUntil(event.event_date);

@@ -74,7 +74,7 @@ export default async function EventoPage({ params }: PageProps) {
         <div>
           <h2 className="text-xl font-bold text-gray-800">{event.title}</h2>
           <p className="text-sm text-gray-500">
-            Gerenciar presentes • <Link href={`/lista/${event.slug}`} className="text-presentix-700 hover:underline" target="_blank">Ver lista pública</Link>
+            Gerenciar presentes • <Link href={`/lista/${event.short_id ?? event.slug}`} className="text-presentix-700 hover:underline" target="_blank">Ver lista pública</Link>
           </p>
         </div>
       </div>
